@@ -2,6 +2,9 @@ package com.example.tdd.stringsumkata;
 
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -92,5 +95,12 @@ class StringSumUtilityTests {
         });
     }
 
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testData.csv", numLinesToSkip = 1)
+    public void useTestDataFromCSVFile(
+            String firstNumber, String secondNumber,long expectedResult) throws NotANaturalNumberException {
+        final Long actualResult=StringSumUtility.sum(firstNumber,secondNumber);
+        assertEquals(expectedResult,actualResult);
+    }
 
 }
